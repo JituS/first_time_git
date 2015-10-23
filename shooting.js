@@ -3,7 +3,7 @@ axel.clear();
 var keypress = require("keypress");
 var dartCordinate = {x:0,y:0,inc:0};
 var arrowCordinate = {x:130,y:20,inc:0},score=0;
-axel.bg(11,155,19);
+axel.bg(12,233,233);
 axel.fg(0,0,0);
 
 var createEnv = function (){
