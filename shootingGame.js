@@ -1,4 +1,4 @@
-var axel = require("axel");
+var axel = require("axel")
 axel.clear();
 var keypress = require("keypress");
 var dartCordinate = {x:0,y:0,inc:0};
