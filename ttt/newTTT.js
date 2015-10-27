@@ -9,6 +9,8 @@ var chancesCanBePlayed = {zeroZero:"00",
 	secondFirst:"21",
 	secondSecond:"22"};
 
+var gameOver = false;
+
 var winningChancesOfPlayer1 = [["00","01","02"],
   ["10","11","12"],
   ["20","21","22"],
@@ -30,7 +32,7 @@ var board = getBoard();
 var players = {player1:{symbol:"0",chances:[]},player2:{symbol:"X",chances:[]}};
 
 var main = function(turn){
-	board = writeTurn(board,turn);
+	if(!gameOver) board = writeTurn(board,turn);
 	boardDesign(board);
 }; 
 
@@ -43,6 +45,7 @@ var checkPosition = function(board,turn){
 };
 
 var checkWinner = function(player,turn,board){
+	var winner = false;
 	for(var i = 0;i < winningChancesOfPlayer1.length;i++){
 		for(var j = 0;j<winningChancesOfPlayer1[i].length;j++){
 			(player == "0")
@@ -50,16 +53,17 @@ var checkWinner = function(player,turn,board){
 			: winningChancesOfPlayer2[i][j] = (winningChancesOfPlayer2[i][j] ==turn) ? "":winningChancesOfPlayer2[i][j];
 			if(winningChancesOfPlayer1[i].join("")==""){
 				boardDesign(board);
-				document.getElementById("winText").innerHTML = "Player 0 wins......."; 
-				main =function(){};
+				winner = "Player 0 wins......."
+				gameOver = true;
 			};
 			if(winningChancesOfPlayer2[i].join("")==""){
 				boardDesign(board);
-				document.getElementById("winText").innerHTML = "Player X wins......."; 
-				main =function(){};
+				winner = "Player X wins......."
+				gameOver = true;
 			};
 		};
 	};
+	return winner;
 };
 
 
@@ -69,7 +73,8 @@ var writeTurn = function(board,turn){
 		board[turn[0]][turn[1]] = (chances%2) ? players.player1.symbol : players.player2.symbol;
 		document.getElementById("turn").innerHTML = (chances%2) ? "Player X turn" : "Player 0 turn";
 		(chances%2) ? players.player1.chances.push(turn) : players.player2.chances.push(turn);
-		(chances%2) ? checkWinner(players.player1.symbol,turn,board) : checkWinner(players.player2,turn,board);
+		winner = (chances%2) ? checkWinner(players.player1.symbol,turn,board) : checkWinner(players.player2,turn,board);
+		document.getElementById("winText").innerHTML = winner || ""; 
 		if(board.join().match(/(\s)/g) == null) boardDesign(board);
 		return board;
 	};
@@ -77,6 +82,7 @@ var writeTurn = function(board,turn){
 };	
 
 var boardDesign = function(board){
+	if(chances ==9 && winner ==false) document.getElementById("winText").innerHTML = "Game Over...<br> no one wins the game"; 
 	document.getElementById("firstFirst").innerHTML = board[1][1];
 	document.getElementById("zeroFirst").innerHTML = board[0][1];
 	document.getElementById("zeroZero").innerHTML = board[0][0];
