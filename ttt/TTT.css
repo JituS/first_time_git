@@ -1,0 +1,26 @@
+body{
+	background: pink;
+}
+
+.pppp td{
+	cursor: progress;
+	color: darkred;
+	width: 100px;
+	height: 100px;
+	border-radius: 20px;
+	background: steelblue;
+	font-size: 40px;
+	margin: auto;
+	text-align: center;
+}
+.pppp{
+	background: blue;
+	border-radius: 10px;
+}
+.restart{
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 10px;
+	background: blue;
+}
